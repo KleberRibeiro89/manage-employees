@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: dba
+      POSTGRES_PASSWORD: ${SA_PASSWORD}
+      POSTGRES_DB: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  api:
+    build: ./backend
+    container_name: api_container
+    ports:
+      - "5223:5223"
+    environment:
+      ConnectionStrings__DefaultConnection: "User ID=dba;Password=${SA_PASSWORD};Host=localhost;Port=5432;Database=db;Pooling=true;Connection Lifetime=0;"
+      ASPNETCORE_Postgres: Development
+      Jwt__Key: 7a7b38009b94c30dd1748a438e6d85ec0624b37fd5f06379a9a3edac390bf414
+      restart: on-failure
+
+volumes:
+  postgres_data:
