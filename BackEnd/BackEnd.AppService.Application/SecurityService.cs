@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using BackEnd.AppService.Domain;
+﻿using BackEnd.AppService.Domain;
 using BackEnd.AppService.Domain.Validator;
 using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
@@ -27,7 +26,7 @@ public class SecurityService : ISecurityService
         var validate = new CreateNewPasswordValidator(_appDbContext).Validate(request);
         if (!validate.IsValid)
         {
-            throw new ArgumentException(string.Join(",", validate.Errors.Select(x=>x.ErrorMessage)));
+            throw new CustomValidatorException(validate.Errors);
         }
 
         var employee =
@@ -45,6 +44,10 @@ public class SecurityService : ISecurityService
     public async Task ForgotPasswordAsync(ForgotPasswordRequest request)
     {
         var validate = new ForgotPasswordValidator(_appDbContext).Validate(request);
+        if (!validate.IsValid)
+        {
+            throw new CustomValidatorException(validate.Errors);
+        }
 
         var employee =
             await _appDbContext
@@ -63,7 +66,9 @@ public class SecurityService : ISecurityService
     {
         var validate = new SingInRequestValidator(_appDbContext).Validate(request);
         if (!validate.IsValid)
-            throw new ArgumentException("Login Inválido");
+        {
+            throw new CustomValidatorException(validate.Errors);
+        }
 
         var employee =
                 await _appDbContext
