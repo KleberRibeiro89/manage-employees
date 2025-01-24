@@ -9,6 +9,14 @@ public class AppDbContext : DbContext
     {
     }
 
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+
+        base.OnConfiguring(optionsBuilder);
+    }
+
     public DbSet<Employee> Employee { get; set; }
     public DbSet<PositionEmployee> PositionEmployee { get; set; }
 }

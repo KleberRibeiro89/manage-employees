@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BackEnd.AppService\BackEnd.AppService.csproj" />
+    <ProjectReference Include="..\BackEnd.Repository\BackEnd.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

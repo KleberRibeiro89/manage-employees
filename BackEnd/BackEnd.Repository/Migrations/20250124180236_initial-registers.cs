@@ -69,7 +69,7 @@ INSERT INTO public.""Employee"" (
     'admin',
     'admin@example.com',
     '000000000', -- Example document number
-    '123456789', -- VERY IMPORTANT: Hash the password!
+    '$2a$12$bQJFPqoBlP99tBgh3fkpWO7A.p3Ow1joeqcgTAFOVLVUWIRebua7S', -- VERY IMPORTANT: Hash the password!
     '1990-05-15 00:00:00+00', -- Example date of birth (YYYY-MM-DD HH:MM:SS+TZ)
     false,
     'c3d4c221-c289-4100-8f8b-23e3ca578328', -- Replace with a valid UUID from PositionEmployee table

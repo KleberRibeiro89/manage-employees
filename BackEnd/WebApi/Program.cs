@@ -1,3 +1,5 @@
+using BackEnd.AppService.Application;
+using BackEnd.AppService.Domain;
 using BackEnd.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 

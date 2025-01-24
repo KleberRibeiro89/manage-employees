@@ -1,6 +1,7 @@
 ﻿using BackEnd.AppService.Domain;
 using BackEnd.AppService.Domain.Validator;
 using BackEnd.AppService.Models.Requests;
+using BackEnd.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +12,20 @@ namespace WebApi.Controllers;
 public class SecurityController : ControllerBase
 {
     private readonly ISecurityService _securityService;
-    public SecurityController(ISecurityService securityService)
+    private readonly AppDbContext _appDbContex;
+    public SecurityController(
+        ISecurityService securityService, 
+        AppDbContext appDbContex)
     {
         _securityService = securityService;
+        _appDbContex = appDbContex;
     }
 
     [HttpPost("sign-in")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody]SignInRequest request)
     {
-        var validate = new SingInRequestValidator().Validate(request);
+        var validate = new SingInRequestValidator(_appDbContex).Validate(request);
         if (!validate.IsValid)
         {
             return BadRequest(validate.Errors);
@@ -28,14 +33,14 @@ public class SecurityController : ControllerBase
 
         var token = await _securityService.SignInAsync(request);
 
-        return Ok(token);
+        return Ok(new { Token = token });
     }
 
     [HttpPost("forgot-password")]
     [AllowAnonymous]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
-        var validate = new ForgotPasswordValidator().Validate(request); 
+        var validate = new ForgotPasswordValidator(_appDbContex).Validate(request); 
         if (!validate.IsValid)
         {
             return BadRequest(validate.Errors);
@@ -48,7 +53,7 @@ public class SecurityController : ControllerBase
     [HttpPut("remember-password")]
     public async Task<IActionResult> CreateNewPasswordAsync([FromBody] CreateNewPasswordRequest request)
     {
-        var validate = new CreateNewPasswordValidator().Validate(request);
+        var validate = new CreateNewPasswordValidator(_appDbContex).Validate(request);
         if (!validate.IsValid)
         {
             return BadRequest(validate.Errors);
