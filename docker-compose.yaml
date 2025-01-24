@@ -15,12 +15,12 @@ services:
   
   api:
     build: ./backend
-    container_name: api_container
+    container_name: api_employee
     ports:
-      - "5223:5223"
+      - "5224:5224"
     environment:
-      ConnectionStrings__DefaultConnection: "User ID=dba;Password=${SA_PASSWORD};Host=localhost;Port=5432;Database=db;Pooling=true;Connection Lifetime=0;"
-      ASPNETCORE_Postgres: Development
+      ConnectionStrings__Postgres: "User ID=dba;Password=${SA_PASSWORD};Host=localhost;Port=5432;Database=db;Pooling=true;Connection Lifetime=0;"
+      ASPNETCORE_ENVIRONMENT: Development
       Jwt__Key: 7a7b38009b94c30dd1748a438e6d85ec0624b37fd5f06379a9a3edac390bf414
       restart: on-failure
 
