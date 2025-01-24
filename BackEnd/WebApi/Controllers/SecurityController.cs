@@ -42,6 +42,18 @@ public class SecurityController : ControllerBase
         }
 
         await _securityService.ForgotPasswordAsync(request);
-        return Ok(new { });
+        return Accepted();
+    }
+
+    [HttpPut("remember-password")]
+    public async Task<IActionResult> CreateNewPasswordAsync([FromBody] CreateNewPasswordRequest request)
+    {
+        var validate = new CreateNewPasswordValidator().Validate(request);
+        if (!validate.IsValid)
+        {
+            return BadRequest(validate.Errors);
+        }
+        await _securityService.CreateNewPasswordRequestAsync(request);
+        return Accepted();
     }
 }
