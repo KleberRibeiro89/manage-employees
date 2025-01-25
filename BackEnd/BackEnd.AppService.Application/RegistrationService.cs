@@ -63,8 +63,22 @@ public class RegistrationService : IRegistrationService
                 .Select(e=> EmployeeResponse.ToResponse(e)).ToListAsync();
     }
 
-    public Task UpdateAsync(UpdateEmployeeRequest request)
+    public async Task UpdateAsync(UpdateEmployeeRequest request)
     {
-        throw new NotImplementedException();
+        var validate = new UpdateEmployeeValidator().Validate(request);
+        if (!validate.IsValid)
+        {
+            throw new CustomValidatorException(validate.Errors);
+        }
+
+        var employee = await _appDbContext.Employee.FirstAsync(e=> e.Id == request.Id);
+        employee.DateOfBirth = request.DateOfBirth;
+        employee.FirstName = request.FirstName;
+        employee.LastName = request.LastName;
+        employee.ManagerId = request.ManagerId;
+        employee.PositionEmployeeId = request.PositionEmployeeId;
+
+        _appDbContext.Employee.Update(employee);
+        await _appDbContext.SaveChangesAsync();
     }
 }

@@ -18,7 +18,7 @@ public class RegistrationController : ControllerBase
         _registrationService = registrationService;
     }
 
-    [HttpPost("add-employee")]
+    [HttpPost("employee")]
     public async Task<IActionResult> AddEmployee([FromBody] AddEmployeeRequest request)
     {
         try
@@ -31,6 +31,28 @@ public class RegistrationController : ControllerBase
         catch (CustomValidatorException ex)
         {
             return BadRequest(ex.Errors);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpPut("employee")]
+    public async Task<IActionResult> AlterEmployee([FromBody] UpdateEmployeeRequest request)
+    {
+        try
+        {
+            request.ManagerId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            await _registrationService.UpdateAsync(request);
+
+            return Created()
+
+        }
+        catch (CustomValidatorException ex)
+        {
+            return BadRequest(ex.Errors);
+
         }
         catch (Exception ex)
         {

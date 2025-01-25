@@ -1,4 +1,6 @@
-﻿namespace BackEnd.AppService.Domain.Registration.Models.Requests;
+﻿using BackEnd.Repository.Entities;
+
+namespace BackEnd.AppService.Domain.Registration.Models.Requests;
 
 public record UpdateEmployeeRequest
 {
