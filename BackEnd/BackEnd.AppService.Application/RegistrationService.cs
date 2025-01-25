@@ -34,9 +34,17 @@ public class RegistrationService : IRegistrationService
         return Task.CompletedTask;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var validate = new DeleteEmployeeValidator().Validate(id);
+        if (!validate.IsValid)
+        {
+            throw new CustomValidatorException(validate.Errors);
+        }
+
+        var employee = await _appDbContext.Employee.FindAsync(id);
+        _appDbContext.Employee.Remove(employee);
+        await _appDbContext.SaveChangesAsync();
     }
 
     public async Task<EmployeeResponse> GetAsync(Guid id)
