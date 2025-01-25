@@ -10,6 +10,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class SecurityController : ControllerBase
 {
     private readonly ISecurityService _securityService;
@@ -59,7 +60,7 @@ public class SecurityController : ControllerBase
         }
     }
 
-    [HttpPut("remember-password")]
+    [HttpPut("create-new-password")]
     public async Task<IActionResult> CreateNewPasswordAsync([FromBody] CreateNewPasswordRequest request)
     {
 
