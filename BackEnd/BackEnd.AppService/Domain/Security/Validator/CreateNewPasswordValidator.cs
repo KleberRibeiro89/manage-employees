@@ -1,10 +1,9 @@
-﻿using System.Data;
-using BackEnd.AppService.Extensions;
+﻿using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
 using BackEnd.Repository;
 using FluentValidation;
 
-namespace BackEnd.AppService.Domain.Validator;
+namespace BackEnd.AppService.Domain.Security.Validator;
 
 public class CreateNewPasswordValidator : AbstractValidator<CreateNewPasswordRequest>
 {

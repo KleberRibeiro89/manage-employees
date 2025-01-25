@@ -1,6 +1,6 @@
 ﻿using BackEnd.AppService.Models.Requests;
 
-namespace BackEnd.AppService.Domain;
+namespace BackEnd.AppService.Domain.Security;
 
 public interface ISecurityService
 {

@@ -6,14 +6,13 @@ namespace BackEnd.Repository.Entities;
 [Index(nameof(DocNumer), IsUnique = true)]
 public record Employee
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
     public string DocNumer { get; set; }
     public string Password { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string Phone { get; set; }
     public Guid ManagerId { get; set; }
     public bool NewPasswordRequired { get; set; }
 

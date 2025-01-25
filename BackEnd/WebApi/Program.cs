@@ -1,6 +1,6 @@
 using System.Text;
 using BackEnd.AppService.Application;
-using BackEnd.AppService.Domain;
+using BackEnd.AppService.Domain.Security;
 using BackEnd.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

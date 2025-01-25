@@ -1,8 +1,6 @@
-﻿using BackEnd.AppService.Domain;
-using BackEnd.AppService.Domain.Validator;
+﻿using BackEnd.AppService.Domain.Security;
 using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
-using BackEnd.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,7 +61,6 @@ public class SecurityController : ControllerBase
     [HttpPut("create-new-password")]
     public async Task<IActionResult> CreateNewPasswordAsync([FromBody] CreateNewPasswordRequest request)
     {
-
         try
         {
             await _securityService.CreateNewPasswordRequestAsync(request);

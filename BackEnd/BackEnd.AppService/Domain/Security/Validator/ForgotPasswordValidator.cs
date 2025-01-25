@@ -2,7 +2,7 @@
 using BackEnd.Repository;
 using FluentValidation;
 
-namespace BackEnd.AppService.Domain.Validator;
+namespace BackEnd.AppService.Domain.Security.Validator;
 
 public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordRequest>
 {

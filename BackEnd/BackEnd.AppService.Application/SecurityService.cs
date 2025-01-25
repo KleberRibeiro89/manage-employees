@@ -1,5 +1,5 @@
-﻿using BackEnd.AppService.Domain;
-using BackEnd.AppService.Domain.Validator;
+﻿using BackEnd.AppService.Domain.Security;
+using BackEnd.AppService.Domain.Security.Validator;
 using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
 using BackEnd.Repository;

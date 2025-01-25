@@ -2,11 +2,10 @@
 using BackEnd.AppService.Models.Requests;
 using BackEnd.Repository;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
-namespace BackEnd.AppService.Domain.Validator;
+namespace BackEnd.AppService.Domain.Security.Validator;
 
-public class SingInRequestValidator :  AbstractValidator<SignInRequest>
+public class SingInRequestValidator : AbstractValidator<SignInRequest>
 {
     private readonly AppDbContext _appDbContext;
     public SingInRequestValidator(AppDbContext appDbContext)
@@ -44,6 +43,6 @@ public class SingInRequestValidator :  AbstractValidator<SignInRequest>
             return false;
         }
 
-        return JwtExtensions.VerifyPassword(password, employee.Password);        
+        return JwtExtensions.VerifyPassword(password, employee.Password);
     }
 }

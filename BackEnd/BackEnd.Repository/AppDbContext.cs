@@ -19,4 +19,5 @@ public class AppDbContext : DbContext
 
     public DbSet<Employee> Employee { get; set; }
     public DbSet<PositionEmployee> PositionEmployee { get; set; }
+    public DbSet<PhoneEmployee> PhoneEmployee { get; set; }
 }
