@@ -9,10 +9,11 @@ namespace BackEnd.AppService.Extensions;
 
 public static class JwtExtensions
 {
-    public static string ToJwt(string username, string role, IConfiguration configuration)
+    public static string ToJwt(Guid id, string username, string role, IConfiguration configuration)
     {
         var claims = new List<Claim>
         {
+            new Claim(ClaimTypes.NameIdentifier, id.ToString()),
             new Claim(ClaimTypes.Name, username),
             new Claim(ClaimTypes.Role, role),
         };

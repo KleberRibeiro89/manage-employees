@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
-using BackEnd.Repository.Entities;
+﻿using BackEnd.Repository.Entities;
 
 namespace BackEnd.AppService.Domain.Registration.Models.Requests;
 

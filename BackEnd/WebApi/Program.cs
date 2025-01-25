@@ -1,5 +1,6 @@
 using System.Text;
 using BackEnd.AppService.Application;
+using BackEnd.AppService.Domain.Registration;
 using BackEnd.AppService.Domain.Security;
 using BackEnd.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,6 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 

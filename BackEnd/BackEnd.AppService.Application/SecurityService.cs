@@ -1,4 +1,5 @@
-﻿using BackEnd.AppService.Domain.Security;
+﻿using BackEnd.AppService.Constants;
+using BackEnd.AppService.Domain.Security;
 using BackEnd.AppService.Domain.Security.Validator;
 using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
@@ -12,7 +13,6 @@ public class SecurityService : ISecurityService
 {
     private readonly AppDbContext _appDbContext;
     private readonly IConfiguration _configuration;
-    private const string _defaultPassword = "123456";
     public SecurityService(
         AppDbContext appDbContext, 
         IConfiguration configuration)
@@ -37,6 +37,7 @@ public class SecurityService : ISecurityService
 
         employee.Password = JwtExtensions.HashPassword(request.NewPassword);
         employee.NewPasswordRequired = false;
+        employee.Password = StringConstants.DefaultPassword;
         _appDbContext.Employee.Update(employee);
         await _appDbContext.SaveChangesAsync();
     }
@@ -56,7 +57,7 @@ public class SecurityService : ISecurityService
                     .SingleAsync();
 
 
-        employee.Password = JwtExtensions.HashPassword(_defaultPassword);
+        employee.Password = JwtExtensions.HashPassword(StringConstants.DefaultPassword);
         employee.NewPasswordRequired = true;
         _appDbContext.Employee.Update(employee);
         await _appDbContext.SaveChangesAsync();
@@ -76,6 +77,6 @@ public class SecurityService : ISecurityService
                         .Where(e => e.Email == request.Email)
                         .SingleAsync();
 
-        return JwtExtensions.ToJwt(employee.Email, employee.PositionEmployee.Name, _configuration);
+        return JwtExtensions.ToJwt(employee.Id, employee.Email, employee.PositionEmployee.Name, _configuration);
     }
 }

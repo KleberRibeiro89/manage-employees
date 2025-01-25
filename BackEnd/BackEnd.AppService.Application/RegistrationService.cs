@@ -1,4 +1,5 @@
-﻿using BackEnd.AppService.Domain.Registration;
+﻿using BackEnd.AppService.Constants;
+using BackEnd.AppService.Domain.Registration;
 using BackEnd.AppService.Domain.Registration.Models.Requests;
 using BackEnd.AppService.Domain.Registration.Models.Responses;
 using BackEnd.AppService.Domain.Registration.Validator;
@@ -19,6 +20,7 @@ public class RegistrationService : IRegistrationService
 
     public Task CreateAsync(AddEmployeeRequest request)
     {
+        request.Password = StringConstants.DefaultPassword;
         var validate = new AddEmployeeValidator(_appDbContext).Validate(request);
         if (!validate.IsValid)
         {
