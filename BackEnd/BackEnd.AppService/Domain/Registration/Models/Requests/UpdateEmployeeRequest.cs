@@ -12,4 +12,5 @@ public record UpdateEmployeeRequest
     public string Phone { get; set; }
     public Guid ManagerId { get; set; }
     public Guid PositionEmployeeId { get; set; }
+    public List<string> Phones { get; set; } = new();
 }

@@ -13,6 +13,7 @@ public record AddEmployeeRequest
     public Guid ManagerId { get; set; }
     public bool NewPasswordRequired { get; set; }
     public Guid PositionEmployeeId { get; set; }
+    public List<string> Phones { get; set; } = new();
 
 
     public static implicit operator Employee (AddEmployeeRequest request)

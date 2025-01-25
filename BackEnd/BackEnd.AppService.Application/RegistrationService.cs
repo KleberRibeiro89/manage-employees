@@ -18,7 +18,7 @@ public class RegistrationService : IRegistrationService
         _appDbContext = appDbContext;
     }
 
-    public Task CreateAsync(AddEmployeeRequest request)
+    public async Task CreateAsync(AddEmployeeRequest request)
     {
         request.Password = StringConstants.DefaultPassword;
         var validate = new AddEmployeeValidator(_appDbContext).Validate(request);
@@ -29,9 +29,15 @@ public class RegistrationService : IRegistrationService
 
         Employee employee = request;
         _appDbContext.Employee.Add(employee);
-        _appDbContext.SaveChanges();
-
-        return Task.CompletedTask;
+        foreach (var phoneNumber in request.Phones)
+        {
+            _appDbContext.PhoneEmployee.Add(new PhoneEmployee
+            {
+                EmployeeId = employee.Id,
+                PhoneNumber = phoneNumber
+            });
+        }
+        await _appDbContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Guid id)
@@ -59,11 +65,6 @@ public class RegistrationService : IRegistrationService
         return EmployeeResponse.ToResponse(entity);
     }
 
-    public Task<List<EmployeeResponse>> GetAsync(Predicate<Employee> predicate)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<List<EmployeeResponse>> GetAsync()
     {
         return _appDbContext
@@ -88,6 +89,15 @@ public class RegistrationService : IRegistrationService
         employee.PositionEmployeeId = request.PositionEmployeeId;
 
         _appDbContext.Employee.Update(employee);
+        _appDbContext.PhoneEmployee.RemoveRange(employee.PhoneEmployee);
+        foreach (var phoneNumber in request.Phones)
+        {
+            _appDbContext.PhoneEmployee.Add(new PhoneEmployee
+            {
+                EmployeeId = employee.Id,
+                PhoneNumber = phoneNumber
+            });
+        }
         await _appDbContext.SaveChangesAsync();
     }
 }

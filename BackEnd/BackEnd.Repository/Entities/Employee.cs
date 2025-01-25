@@ -19,4 +19,6 @@ public record Employee
     [ForeignKey("PositionEmployee")] 
     public Guid PositionEmployeeId { get; set; }
     public virtual PositionEmployee PositionEmployee { get; set; }
+
+    public virtual ICollection<PhoneEmployee> PhoneEmployee { get; set; }
 }
