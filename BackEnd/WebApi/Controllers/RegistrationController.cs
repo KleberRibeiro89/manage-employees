@@ -46,7 +46,7 @@ public class RegistrationController : ControllerBase
             request.ManagerId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _registrationService.UpdateAsync(request);
 
-            return Created()
+            return Accepted();
 
         }
         catch (CustomValidatorException ex)
@@ -55,6 +55,52 @@ public class RegistrationController : ControllerBase
 
         }
         catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("employee/{id}")]
+    public async Task<IActionResult> GetEmployee(Guid id)
+    {
+        try
+        {
+            return Ok(await _registrationService.GetAsync(id));
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+    }
+
+    [HttpGet("employees")]
+    public async Task<IActionResult> GetEmployees()
+    {
+        try
+        {
+            return Ok(await _registrationService.GetAsync());
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+    }
+
+    [HttpDelete("employee/{id}")]
+    public async Task<IActionResult> DeleteEmployee(Guid id)
+    {
+        try
+        {
+            await _registrationService.DeleteAsync(id);
+            return Accepted();
+        }
+        catch (CustomValidatorException ex)
+        {
+            return BadRequest(ex.Errors);
+        }
+        catch(Exception ex)
         {
             return StatusCode(500, ex.Message);
         }

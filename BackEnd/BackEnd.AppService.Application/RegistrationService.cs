@@ -58,9 +58,10 @@ public class RegistrationService : IRegistrationService
 
     public async Task<List<EmployeeResponse>> GetAsync()
     {
-        return await _appDbContext
-                .Employee
-                .Select(e=> EmployeeResponse.ToResponse(e)).ToListAsync();
+        return _appDbContext
+                    .Employee
+                    .ToList()
+                    .Select(e=> EmployeeResponse.ToResponse(e)).ToList();
     }
 
     public async Task UpdateAsync(UpdateEmployeeRequest request)
