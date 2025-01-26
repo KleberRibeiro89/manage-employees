@@ -1,0 +1,16 @@
+section{
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  max-width: fit-content;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.col-12 {
+width: 100%;
+display: flex;
+justify-content: center;
+}
