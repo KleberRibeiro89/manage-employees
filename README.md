@@ -1,4 +1,4 @@
-# Projeto Incrível (Manage Employees) 
+# Projeto/Desafio (Manage Employees) 
 
 Olá! Bem-vindo(a) ao repositório do Projeto (Manage Employees), uma aplicação full-stack construída com .NET 8, Angular 18 e Postgres. A melhor parte? Colocá-la para rodar é *muito* fácil! 
 
