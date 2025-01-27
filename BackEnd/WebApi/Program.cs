@@ -27,7 +27,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; // Define o esquema padrão para autenticação
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // Define o esquema padrão para desafios (quando a autenticação falha)
 })
-.AddJwtBearer(options => {
+.AddJwtBearer(options =>
+{
     // ... suas opções de configuração do JWT Bearer (as mesmas do exemplo anterior)
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -39,14 +40,14 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = "sua-audience",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
-    options.IncludeErrorDetails = true; 
+    options.IncludeErrorDetails = true;
 
 });
 
 // Adiciona o Swagger com configuração de segurança Bearer
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Manage Employee API", Version = "v1" });
 
     // Configuração da segurança Bearer
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -79,16 +80,6 @@ builder.Services.AddSwaggerGen(c =>
 // Configurar o CORS
 builder.Services.AddCors(options =>
 {
-    //options.AddPolicy("MinhaPolíticaCORS", // Nome da política (você pode escolher outro)
-    //    policy =>
-    //    {
-    //        policy.WithOrigins("http://meu-dominio-frontend.com", "http://localhost:4200") // Domínios permitidos
-    //               .AllowAnyHeader() // Permite qualquer cabeçalho
-    //               .AllowAnyMethod(); // Permite qualquer método HTTP (GET, POST, PUT, DELETE, etc.)
-    //                                  //.AllowCredentials(); // Permite o envio de credenciais (cookies, autenticação HTTP) - cuidado com segurança!
-    //    });
-
-    //Configuração para permitir qualquer origem (NÃO RECOMENDADO EM PRODUÇÃO)
     options.AddPolicy("Origin", policy =>
     {
         policy.AllowAnyOrigin()
@@ -106,25 +97,25 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
+        await Task.Delay(TimeSpan.FromSeconds(40));
         var context = services.GetRequiredService<AppDbContext>();
+
         context.Database.Migrate();
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "an error occurred while applying migrations.");
-        // Tratar a exceção adequadamente. Em produção, você provavelmente deveria abortar a inicialização.
     }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors("Origin"); 
+app.UseCors("Origin");
 
 
 app.UseHttpsRedirection();
