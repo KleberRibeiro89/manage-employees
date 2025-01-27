@@ -12,17 +12,17 @@
 
     <div class="mb-3">
       <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-      <input type="date" [(ngModel)]="model.dateOfBirth" class="form-control" id="dateOfBirth">
+      <input type="date" [(ngModel)]="model.dateOfBirth2" class="form-control" id="dateOfBirth">
     </div>
 
     <div class="mb-3">
-      <label for="lastName" class="form-label">Email</label>
-      <input type="text" [(ngModel)]="model.email" class="form-control" id="lastName" placeholder="Last Name">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" [(ngModel)]="model.email" class="form-control" id="email" placeholder="email">
     </div>
 
     <div class="mb-3">
       <label for="docNumber" class="form-label">Doc Number</label>
-      <input type="text" [(ngModel)]="model.docNumer" class="form-control" id="docNumber" placeholder="Doc Number">
+      <input type="text" [(ngModel)]="model.docNumber" disabled="disabled" class="form-control" id="docNumber" placeholder="Doc Number">
     </div>
 
     <div class="mb-3">
@@ -32,7 +32,7 @@
       </select>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="position" class="form-label">Phones</label>
       <input [(ngModel)]="phoneNumber" type="text" class="form-control" id="phone" placeholder="00 000000000">
 
@@ -40,10 +40,10 @@
       <ul class="list-group mt-3">
         <li *ngFor="let indexPhone of phones;" class="list-group-item">{{indexPhone}}</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 
   <div class="mb-3">
-    <button class="btn btn-primary" (click)="addEmployee()">Salver</button>
+    <button class="btn btn-primary" (click)="update()">Salver</button>
   </div>
 </div>

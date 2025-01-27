@@ -13,6 +13,8 @@ public record EmployeeResponse
     public DateTime DateOfBirth { get; set; }
     public Guid PositionEmployeeId { get; set; }
     public string PositionEmployee { get; set; }
+    public Guid ManagerId { get; set; }
+    public string ManagerName { get; set; }
 
 
 
@@ -28,7 +30,8 @@ public record EmployeeResponse
             Password = employee.Password,
             DateOfBirth = employee.DateOfBirth,
             PositionEmployee = employee.PositionEmployee.Name,
-            PositionEmployeeId = employee.PositionEmployeeId
+            PositionEmployeeId = employee.PositionEmployeeId,
+            ManagerId = employee.ManagerId
         };
     }
 }

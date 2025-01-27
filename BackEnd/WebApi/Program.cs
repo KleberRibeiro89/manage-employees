@@ -75,6 +75,28 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
+// Configurar o CORS
+builder.Services.AddCors(options =>
+{
+    //options.AddPolicy("MinhaPolíticaCORS", // Nome da política (você pode escolher outro)
+    //    policy =>
+    //    {
+    //        policy.WithOrigins("http://meu-dominio-frontend.com", "http://localhost:4200") // Domínios permitidos
+    //               .AllowAnyHeader() // Permite qualquer cabeçalho
+    //               .AllowAnyMethod(); // Permite qualquer método HTTP (GET, POST, PUT, DELETE, etc.)
+    //                                  //.AllowCredentials(); // Permite o envio de credenciais (cookies, autenticação HTTP) - cuidado com segurança!
+    //    });
+
+    //Configuração para permitir qualquer origem (NÃO RECOMENDADO EM PRODUÇÃO)
+    options.AddPolicy("Origin", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Aplicando migrações
@@ -101,6 +123,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Origin"); 
+
 
 app.UseHttpsRedirection();
 

@@ -10,4 +10,6 @@ public interface IRegistrationService
     Task<List<EmployeeResponse>> GetAsync();
     Task UpdateAsync(UpdateEmployeeRequest request);
     Task DeleteAsync(Guid id);
+    ValueTask<bool> NewPasswordAsync(Guid id);
+    List<PositionResponse> GetPositions();
 }

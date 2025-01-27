@@ -1,4 +1,6 @@
-﻿using BackEnd.AppService.Domain.Security;
+﻿using System.Security.Claims;
+using BackEnd.AppService.Domain.Registration;
+using BackEnd.AppService.Domain.Security;
 using BackEnd.AppService.Extensions;
 using BackEnd.AppService.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
@@ -12,10 +14,12 @@ namespace WebApi.Controllers;
 public class SecurityController : ControllerBase
 {
     private readonly ISecurityService _securityService;
+    private readonly IRegistrationService _registrationService;
     public SecurityController(
-        ISecurityService securityService)
+        ISecurityService securityService, IRegistrationService registrationService)
     {
         _securityService = securityService;
+        _registrationService = registrationService;
     }
 
     [HttpPost("sign-in")]
@@ -75,5 +79,14 @@ public class SecurityController : ControllerBase
         {
             return StatusCode(500, ex.Message);
         }
+    }
+
+    [HttpGet("new-password")]
+    public async Task<bool> NewPassword()
+    {
+        var managerId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var result = await _registrationService.NewPasswordAsync(managerId);
+        return result;
     }
 }

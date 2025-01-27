@@ -28,6 +28,7 @@ public record AddEmployeeRequest
             DateOfBirth = request.DateOfBirth,
             NewPasswordRequired = true,
             PositionEmployeeId = request.PositionEmployeeId,
+            ManagerId = request.ManagerId
         };
     }
 }

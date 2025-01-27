@@ -105,4 +105,10 @@ public class RegistrationController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
+    [HttpGet("positions")]
+    public IActionResult GetPositions()
+    {
+        return Ok(_registrationService.GetPositions());
+    }
 }

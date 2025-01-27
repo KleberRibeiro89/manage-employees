@@ -20,7 +20,7 @@ public class RegistrationService : IRegistrationService
 
     public async Task CreateAsync(AddEmployeeRequest request)
     {
-        request.Password = StringConstants.DefaultPassword;
+        request.Password = JwtExtensions.HashPassword(StringConstants.DefaultPassword);
         var validate = new AddEmployeeValidator(_appDbContext).Validate(request);
         if (!validate.IsValid)
         {
@@ -73,6 +73,15 @@ public class RegistrationService : IRegistrationService
                     .Select(e=> EmployeeResponse.ToResponse(e)).ToList();
     }
 
+    public async ValueTask<bool> NewPasswordAsync(Guid id)
+    {
+        var employee = await _appDbContext
+                        .Employee
+                        .FirstAsync(e => e.Id == id);
+
+        return employee.NewPasswordRequired;
+    }
+
     public async Task UpdateAsync(UpdateEmployeeRequest request)
     {
         var validate = new UpdateEmployeeValidator().Validate(request);
@@ -87,6 +96,7 @@ public class RegistrationService : IRegistrationService
         employee.LastName = request.LastName;
         employee.ManagerId = request.ManagerId;
         employee.PositionEmployeeId = request.PositionEmployeeId;
+        employee.Email = request.Email;
 
         _appDbContext.Employee.Update(employee);
         _appDbContext.PhoneEmployee.RemoveRange(employee.PhoneEmployee);
@@ -99,5 +109,16 @@ public class RegistrationService : IRegistrationService
             });
         }
         await _appDbContext.SaveChangesAsync();
+    }
+
+    public List<PositionResponse> GetPositions()
+    {
+        return _appDbContext
+                        .PositionEmployee
+                        .Select(p => new PositionResponse
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                        }).ToList();
     }
 }
