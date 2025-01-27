@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, CommonModule, HttpClientModule, RouterModule, MenuComponent],
+  imports: [RouterModule, CommonModule, HttpClientModule, RouterModule],
   providers: [RegistrationService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -24,7 +24,10 @@ export class HomeComponent {
         (response) => {
           this.employees = response;
         },
-        (error) => { },
+        (error:HttpErrorResponse) => {
+          alert(error.error);
+
+         },
         () => { }
       );
   }

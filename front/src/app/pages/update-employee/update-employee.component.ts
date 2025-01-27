@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { UpdateEmployeeRequest } from '../../models/requests/update-employee.request';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,8 @@ import { CommonModule } from '@angular/common';
 export class UpdateEmployeeComponent {
   constructor(
     private service: RegistrationService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   model: UpdateEmployeeRequest = new UpdateEmployeeRequest();
   id = '';
@@ -57,31 +58,38 @@ export class UpdateEmployeeComponent {
       );
   }
 
-  update():void{
+  update(): void {
     console.log(this.model);
     this.service.updateEmployee(this.model)
-        .subscribe(
-          (response)=>{},
-          (error)=>{
-            alert(error.error);
+      .subscribe(
+        (response) => {
+          alert('alterado com sucesso');
+          this.router.navigate(['home']);
 
-          },
-          ()=>{},
-        )
+        },
+        (error) => {
+          alert(error.error);
+
+        },
+        () => { },
+      )
   }
 
-  delete(id:string):void{
+  delete(id: string): void {
 
     this.service.deleteEmployee(id)
-        .subscribe(
-          (response)=>{
+      .subscribe(
+        (response) => {
+          alert('excluido com sucesso');
 
-          },
-          (error)=>{
-            alert(error.error);
+          this.router.navigate(['home']);
 
-          },
-          ()=>{}
-        )
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.error);
+
+        },
+        () => { }
+      )
   }
 }

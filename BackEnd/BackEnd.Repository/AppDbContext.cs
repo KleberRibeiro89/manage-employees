@@ -19,7 +19,7 @@ public class AppDbContext : DbContext
         base.OnConfiguring(optionsBuilder);
     }
 
-    public DbSet<Employee> Employee { get; set; }
-    public DbSet<PositionEmployee> PositionEmployee { get; set; }
-    public DbSet<PhoneEmployee> PhoneEmployee { get; set; }
+    public virtual DbSet<Employee> Employee { get; set; }
+    public virtual DbSet<PositionEmployee> PositionEmployee { get; set; }
+    public virtual DbSet<PhoneEmployee> PhoneEmployee { get; set; }
 }

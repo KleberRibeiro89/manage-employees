@@ -35,7 +35,7 @@ public class AddEmployeeValidator : AbstractValidator<AddEmployeeRequest>
 
 
         RuleFor(e => e.DateOfBirth)
-            .NotEmpty().WithMessage("ADate of birth is required.")
+            .NotEmpty().WithMessage("A Date of birth is required.")
             .Must(BeAtLeast18YearsOld).WithMessage("The employee must be at least 18 years old.");
 
 
@@ -79,6 +79,7 @@ public class AddEmployeeValidator : AbstractValidator<AddEmployeeRequest>
 
     private bool HigherPermissions(Guid managerId, Guid positionEmployeeId)
     {
+        
         var manager = _appDbContext.Employee.First(e=> e.Id == managerId);
         var employeePosition = EnumExtensions.GetPositionFromValue(positionEmployeeId);
         var managerPosition = EnumExtensions.GetPositionFromValue(manager.PositionEmployeeId);

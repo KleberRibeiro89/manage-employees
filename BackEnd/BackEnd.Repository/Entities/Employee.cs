@@ -20,5 +20,5 @@ public record Employee
     public Guid PositionEmployeeId { get; set; }
     public virtual PositionEmployee PositionEmployee { get; set; }
 
-    public virtual ICollection<PhoneEmployee> PhoneEmployee { get; set; }
+    public virtual ICollection<PhoneEmployee> PhoneEmployee { get; set; } = new List<PhoneEmployee>();
 }

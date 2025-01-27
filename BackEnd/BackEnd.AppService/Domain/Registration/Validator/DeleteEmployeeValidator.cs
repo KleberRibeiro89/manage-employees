@@ -12,6 +12,4 @@ public class DeleteEmployeeValidator: AbstractValidator<Guid>
 
 
     }
-
-
 }

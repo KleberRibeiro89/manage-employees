@@ -32,7 +32,7 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
            {
                if (!HigherPermissions(e.ManagerId, e.PositionEmployeeId))
                {
-                   context.AddFailure("your position does not allow you to create an employee of that position.");
+                   context.AddFailure("your position does not allow you to update an employee of that position.");
                }
            });
     }
