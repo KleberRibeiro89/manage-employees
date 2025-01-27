@@ -58,7 +58,10 @@ A maneira mais rápida de rodar este projeto é com o Docker Compose. Basta segu
 
     (O `--open` abre o navegador automaticamente.)
 
+
 Pronto! A aplicação estará disponível em `http://localhost:4200` (ou a porta que o Angular definir).
+
+7.  A aplicação carrega via migration um usuário padrão `admin@example.com` e a senha: 123456
 
 ## Parando a aplicação
 
