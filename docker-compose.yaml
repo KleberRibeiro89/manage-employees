@@ -18,6 +18,8 @@ services:
     container_name: api_employee
     ports:
       - "5224:5224"
+    healthcheck: 
+      timeout: 40s
     environment:
       ConnectionStrings__Postgres: "User ID=dba;Password=${SA_PASSWORD};Host=postgres;Port=5432;Database=db;Pooling=true;Connection Lifetime=0;"
       ASPNETCORE_ENVIRONMENT: Development
