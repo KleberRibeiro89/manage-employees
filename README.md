@@ -24,7 +24,7 @@ A maneira mais rápida de rodar este projeto é com o Docker Compose. Basta segu
 1.  Clone este repositório:
 
     ```bash
-    git clone [https://github.com/KleberRibeiro89/manage-employees](https://www.google.com/search?q=https://github.com/KleberRibeiro89/manage-employees)
+    git clone [https://github.com/KleberRibeiro89/manage-employees]
     cd manage-employees
     ```
 
