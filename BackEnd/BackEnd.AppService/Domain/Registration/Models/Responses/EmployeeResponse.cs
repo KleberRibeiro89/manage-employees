@@ -15,6 +15,7 @@ public record EmployeeResponse
     public string PositionEmployee { get; set; }
     public Guid ManagerId { get; set; }
     public string ManagerName { get; set; }
+    public List<KeyValuePair<Guid,string>> Phones { get; set; }
 
 
 
@@ -31,7 +32,8 @@ public record EmployeeResponse
             DateOfBirth = employee.DateOfBirth,
             PositionEmployee = employee.PositionEmployee.Name,
             PositionEmployeeId = employee.PositionEmployeeId,
-            ManagerId = employee.ManagerId
+            ManagerId = employee.ManagerId,
+            Phones = employee.PhoneEmployee.Select(p => new KeyValuePair<Guid,string>(p.Id,p.PhoneNumber)).ToList(),
         };
     }
 }

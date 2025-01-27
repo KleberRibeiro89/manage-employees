@@ -8,5 +8,12 @@ export interface EmployeeResponse {
   dateOfBirth: Date;
   positionEmployeeId: string;
   positionEmployee: string;
-  managerId:string;
+  managerId: string;
+  phones: PhoneEmployeeResponse[];
+}
+
+export interface PhoneEmployeeResponse {
+  id: string;
+  employeeId: string;
+  phoneNumber: string;
 }

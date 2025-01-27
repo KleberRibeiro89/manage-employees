@@ -29,14 +29,16 @@ public class RegistrationService : IRegistrationService
 
         Employee employee = request;
         _appDbContext.Employee.Add(employee);
-        foreach (var phoneNumber in request.Phones)
-        {
-            _appDbContext.PhoneEmployee.Add(new PhoneEmployee
+        await _appDbContext.SaveChangesAsync();
+
+        _appDbContext.PhoneEmployee.AddRange(
+            request.Phones.Select(p => new PhoneEmployee
             {
                 EmployeeId = employee.Id,
-                PhoneNumber = phoneNumber
-            });
-        }
+                PhoneNumber = p,
+                Id = Guid.NewGuid()
+            }).ToList());
+
         await _appDbContext.SaveChangesAsync();
     }
 
@@ -48,7 +50,11 @@ public class RegistrationService : IRegistrationService
             throw new CustomValidatorException(validate.Errors);
         }
 
-        var employee = await _appDbContext.Employee.FindAsync(id);
+        var phones = _appDbContext.PhoneEmployee.Where(p => p.EmployeeId == id).ToList();
+        _appDbContext.PhoneEmployee.RemoveRange(phones);
+        await _appDbContext.SaveChangesAsync();
+
+        var employee = await _appDbContext.Employee.FirstAsync(e=> e.Id == id);
         _appDbContext.Employee.Remove(employee);
         await _appDbContext.SaveChangesAsync();
     }
@@ -84,7 +90,7 @@ public class RegistrationService : IRegistrationService
 
     public async Task UpdateAsync(UpdateEmployeeRequest request)
     {
-        var validate = new UpdateEmployeeValidator().Validate(request);
+        var validate = new UpdateEmployeeValidator(_appDbContext).Validate(request);
         if (!validate.IsValid)
         {
             throw new CustomValidatorException(validate.Errors);
@@ -96,18 +102,16 @@ public class RegistrationService : IRegistrationService
         employee.LastName = request.LastName;
         employee.ManagerId = request.ManagerId;
         employee.PositionEmployeeId = request.PositionEmployeeId;
-        employee.Email = request.Email;
 
         _appDbContext.Employee.Update(employee);
         _appDbContext.PhoneEmployee.RemoveRange(employee.PhoneEmployee);
-        foreach (var phoneNumber in request.Phones)
+
+        _appDbContext.PhoneEmployee.AddRange(request.Phones.Select(p => new PhoneEmployee
         {
-            _appDbContext.PhoneEmployee.Add(new PhoneEmployee
-            {
-                EmployeeId = employee.Id,
-                PhoneNumber = phoneNumber
-            });
-        }
+            EmployeeId = p.Key,
+            PhoneNumber = p.Value
+        }));
+        
         await _appDbContext.SaveChangesAsync();
     }
 

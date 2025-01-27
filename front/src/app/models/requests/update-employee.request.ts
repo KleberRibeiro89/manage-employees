@@ -1,3 +1,5 @@
+import { PhoneEmployeeResponse } from "../responses/employee.response";
+
 export class UpdateEmployeeRequest {
   id = '00000000-0000-0000-0000-000000000000';
   firstName: string = '';
@@ -11,5 +13,5 @@ export class UpdateEmployeeRequest {
   managerName = '';
   positionEmployeeId = '00000000-0000-0000-0000-000000000000';
   docNumber = '';
-  phones: [] = [];
+  phones: PhoneEmployeeResponse[] = [];
 }

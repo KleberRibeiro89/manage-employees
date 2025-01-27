@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { UpdateEmployeeRequest } from '../../models/requests/update-employee.request';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-employee',
-  imports: [FormsModule, HttpClientModule, CommonModule],
+  imports: [FormsModule, HttpClientModule, CommonModule, RouterModule],
   providers: [RegistrationService],
   templateUrl: './update-employee.component.html',
   styleUrl: './update-employee.component.scss'
@@ -49,6 +49,7 @@ export class UpdateEmployeeComponent {
           this.model.managerId = response.managerId;
           this.model.dateOfBirth2 = response.dateOfBirth.toString().split('T')[0];
           this.model.docNumber = response.docNumer;
+          this.model.phones = response.phones;
           console.log(response);
         },
         (error) => { console.log(error) },
@@ -63,6 +64,20 @@ export class UpdateEmployeeComponent {
           (response)=>{},
           (error)=>{},
           ()=>{},
+        )
+  }
+
+  delete(id:string):void{
+
+    this.service.deleteEmployee(id)
+        .subscribe(
+          (response)=>{
+
+          },
+          (error)=>{
+
+          },
+          ()=>{}
         )
   }
 }

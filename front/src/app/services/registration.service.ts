@@ -37,4 +37,12 @@ export class RegistrationService {
   updateEmployee(request: UpdateEmployeeRequest): Observable<object> {
     return this.http.put(`${environment.apiUrl}registration/employee`, request, { headers: this._headers });
   }
+
+  getEmployees(): Observable<EmployeeResponse[]> {
+    return this.http.get<EmployeeResponse[]>(`${environment.apiUrl}registration/employees`, { headers: this._headers });
+  }
+
+  deleteEmployee(id:string):Observable<Object>{
+    return this.http.delete(`${environment.apiUrl}registration/employee/${id}`, {headers: this._headers});
+  }
 }

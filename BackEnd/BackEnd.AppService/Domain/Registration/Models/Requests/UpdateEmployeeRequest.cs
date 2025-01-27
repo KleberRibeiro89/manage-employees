@@ -8,10 +8,9 @@ public record UpdateEmployeeRequest
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Password { get; set; }
-    public string Email { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Phone { get; set; }
     public Guid ManagerId { get; set; }
     public Guid PositionEmployeeId { get; set; }
-    public List<string> Phones { get; set; } = new();
+    public List<KeyValuePair<Guid,string>> Phones { get; set; } = new();
 }
