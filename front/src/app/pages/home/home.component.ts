@@ -4,10 +4,11 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RegistrationService } from '../../services/registration.service';
 import { EmployeeResponse } from '../../models/responses/employee.response';
+import { MenuComponent } from '../../components/menu/menu.component';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, CommonModule,HttpClientModule, RouterModule],
+  imports: [RouterModule, CommonModule, HttpClientModule, RouterModule, MenuComponent],
   providers: [RegistrationService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

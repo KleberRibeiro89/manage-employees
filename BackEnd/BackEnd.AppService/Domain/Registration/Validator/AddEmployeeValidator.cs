@@ -65,6 +65,11 @@ public class AddEmployeeValidator : AbstractValidator<AddEmployeeRequest>
                    context.AddFailure("your position does not allow you to create an employee of that position.");
                }
            });
+
+
+        RuleFor(e => e.PositionEmployeeId)
+            .NotEqual(Guid.Empty)
+            .WithMessage("Position is required");
     }
 
     private bool BeAtLeast18YearsOld(DateTime dateOfBirth)

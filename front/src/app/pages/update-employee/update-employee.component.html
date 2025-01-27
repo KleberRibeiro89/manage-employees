@@ -2,10 +2,11 @@
   <div class="row">
     <div class="col-3">
       <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark " style="width: 280px;">
+
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a [routerLink]="['/home']" class="nav-link text-white" aria-current="page">
+            <a [routerLink]="['/home']" class="nav-link" aria-current="page">
               Home
             </a>
           </li>
@@ -23,14 +24,16 @@
         <hr>
       </div>
     </div>
-    <div class="col-8 mt-5" >
+    <div class="col-8 mt-5">
       <div class="container">
+
         <h1>Update or Delete {{model.firstName}}</h1>
-        <hr/>
+        <hr />
         <div class="row">
           <div class="mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" [(ngModel)]="model.firstName" class="form-control" id="firstName" placeholder="First Name">
+            <input type="text" [(ngModel)]="model.firstName" class="form-control" id="firstName"
+              placeholder="First Name">
           </div>
 
           <div class="mb-3">
@@ -50,7 +53,8 @@
 
           <div class="mb-3">
             <label for="docNumber" class="form-label">Doc Number</label>
-            <input type="text" [(ngModel)]="model.docNumber" disabled="disabled" class="form-control" id="docNumber" placeholder="Doc Number">
+            <input type="text" [(ngModel)]="model.docNumber" disabled="disabled" class="form-control" id="docNumber"
+              placeholder="Doc Number">
           </div>
 
           <div class="mb-3">
@@ -76,12 +80,11 @@
           &nbsp;
           <button class="btn btn-secondary" (click)="delete(model.id)">Excluir</button>
 
+
+
         </div>
       </div>
-
     </div>
   </div>
+
 </div>
-
-
-

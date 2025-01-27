@@ -1,0 +1,26 @@
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%; /* Garante que o conteúdo preencha o modal */
+}
+.modal-header, .modal-footer{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-body{
+    padding: 1rem;
+    flex: 1; /* Permite que o body cresça */
+    overflow-y: auto; /* Adiciona scroll se necessário */
+}

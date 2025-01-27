@@ -1,11 +1,13 @@
 import { FormsModule } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RegistrationService } from '../../services/registration.service';
 import { PositionResponse } from '../../models/responses/position.model';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { EmployeeRequest } from '../../models/requests/employee.request';
 import { RouterModule } from '@angular/router';
+import { MenuComponent } from "../../components/menu/menu.component";
+import { ToastComponent } from '../../components/toast/toast.component';
 
 @Component({
   selector: 'app-add-employee',
@@ -21,6 +23,7 @@ export class AddEmployeeComponent {
   phoneNumber = '';
   phones: string[] = [];
   model: EmployeeRequest = new EmployeeRequest();
+
   ngOnInit(): void {
     this.service.getPositions()
       .subscribe(
@@ -33,10 +36,7 @@ export class AddEmployeeComponent {
   }
 
   addPhone(): void {
-    console.log(this.phoneNumber);
     this.phones.push(this.phoneNumber);
-
-    console.log(this.phones);
   }
 
 
@@ -46,8 +46,11 @@ export class AddEmployeeComponent {
     this.service.addEmployee(this.model)
       .subscribe(
         (response) => { },
-        (error) => {
-          console.log(error);
+        (error: HttpErrorResponse) => {
+
+          alert(error.error);
+
+
         },
         () => { }
       )

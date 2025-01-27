@@ -62,7 +62,10 @@ export class UpdateEmployeeComponent {
     this.service.updateEmployee(this.model)
         .subscribe(
           (response)=>{},
-          (error)=>{},
+          (error)=>{
+            alert(error.error);
+
+          },
           ()=>{},
         )
   }
@@ -75,6 +78,7 @@ export class UpdateEmployeeComponent {
 
           },
           (error)=>{
+            alert(error.error);
 
           },
           ()=>{}
