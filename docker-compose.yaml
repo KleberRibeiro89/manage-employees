@@ -1,4 +1,4 @@
-version: '4'
+version: '3.9'
 
 services:
   postgres:
@@ -23,6 +23,6 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       Jwt__Key: 7a7b38009b94c30dd1748a438e6d85ec0624b37fd5f06379a9a3edac390bf414
       restart: on-failure
-
+      
 volumes:
   postgres_data:

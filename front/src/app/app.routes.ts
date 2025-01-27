@@ -11,5 +11,11 @@ export const routes: Routes = [
   { path: 'new-password', component: NewPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'add-employee', component: AddEmployeeComponent },
-  { path: 'update-employee/:id', component: UpdateEmployeeComponent },
+  {
+    path: 'update-employee/:id',
+    component: UpdateEmployeeComponent,
+    data: {
+      prerender: true
+    }
+  },
 ];

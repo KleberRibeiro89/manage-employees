@@ -9,6 +9,7 @@ COPY *.sln .
 COPY ./BackEnd.AppService/BackEnd.AppService.csproj ./BackEnd.AppService/
 COPY ./BackEnd.AppService.Application/BackEnd.AppService.Application.csproj ./BackEnd.AppService.Application/
 COPY ./BackEnd.Repository/BackEnd.Repository.csproj ./BackEnd.Repository/
+COPY ./BackEnd.Test/BackEnd.Test.csproj ./BackEnd.Test/
 COPY ./WebApi/WebApi.csproj ./WebApi/
 RUN dotnet restore 
 
