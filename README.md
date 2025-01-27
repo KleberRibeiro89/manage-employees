@@ -61,7 +61,10 @@ A maneira mais rápida de rodar este projeto é com o Docker Compose. Basta segu
 
 Pronto! A aplicação estará disponível em `http://localhost:4200` (ou a porta que o Angular definir).
 
-7.  A aplicação carrega via migration um usuário padrão `admin@example.com` e a senha: 123456
+## Acessando a Aplicação
+
+*   A aplicação carrega via migration um usuário padrão `admin@example.com` e a senha: `123456`
+*   A subida da API tem um delay de 20 segundos para rodar as migrações e fazer a criação do banco, então essa demora é proposital, para a conclusão da criação do banco
 
 ## Parando a aplicação
 
